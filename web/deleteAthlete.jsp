@@ -55,23 +55,9 @@
                     <tr>
                         <td><label>Date Of Birth</label></td>
                         <td>
-
-                            <c:choose>
-                                <c:when test="${specificAthlete.getDateOfBirth()}
-                                        == -2">
-                                    <label>Equals-2</label> 
-                                </c:when>
-                                <c:when test="${specificAthlete.getDateOfBirth()}
-                                        == -1">
-                                    <label>Equals-1</label>
-                                </c:when>
-                                <c:otherwise>
-                                    <label>
-                                        ${specificAthlete.getDateOfBirth()}
-                                    </label> 
-                                </c:otherwise>
-
-                            </td>
+                            <label>${specificAthlete.getDateOfBirth()}</label>
+                            
+                        </td>
                     </tr>
 
                         <tr>

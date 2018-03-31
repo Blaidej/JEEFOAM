@@ -54,7 +54,7 @@
                     <td><label>Date Of Birth</label></td>
                     <td>
                         <input type="text" name="DateOfBirth" value="" />
-                        (mm/dd/yyyy)
+                        <span style="color:red">(mm/dd/yyyy)</span>
                     </td>
                 </tr>
                 <tr>

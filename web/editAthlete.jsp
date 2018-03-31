@@ -26,7 +26,6 @@
             </c:forEach>
     </c:if>
 
-
     <!-- Form to input user info -->
     <form action="viewRoster">
         <table border="1">
@@ -60,7 +59,7 @@
                         <p>
                             <input type="text" name="DateOfBirth" 
                                    value="${specificAthlete.getDateOfBirth()}" />
-                            (yyyy-mm-dd)
+                            <span style="color:red">(yyyy-mm-dd)</span>
                         </p>
                     </td>
                 </tr>

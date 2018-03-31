@@ -73,21 +73,17 @@ public class RosterServlet extends HttpServlet
                         /* if the user presses the update button, we need to 
                             update the info for the athlete*/
                         //We call athleteBuilder to validate and store into bean
-                        bean = athleteBuilder( (roster.isOnRoster(nationalID)) ? 
-                                //if national ID is already on roster
-                                errMsgs.add("Please choose a different National ID"):
-                                //if national ID isn't on roster, call function
-                                true, nationalID, firstName, lastName, DateOfBirth, errMsgs);
+                        bean = athleteBuilder(false, nationalID, firstName,
+                                lastName, DateOfBirth, errMsgs);
 
                         if (errMsgs.isEmpty())
                         {
                             roster.update(bean);
                             break;
                         }
-                        /*If there are errors it goes into the edit case
+                    /*If there are errors it goes into the edit case
                           to be able to repopulate the fields on the edit page.
-                         */
-                        log("Case:Switch:UPDATE");
+                     */
 
                     case "edit":
                         /*  if the case is edit, we will need to get
@@ -97,7 +93,6 @@ public class RosterServlet extends HttpServlet
                             We need to feed the same  NationalID from the line
                             we where already on
                          */
-                        log("Case:Switch:EDIT");
                         String nationalIDSpecific = request.getParameter(
                                 "nationalIDSpecific");
                         specificAthlete = roster.find(nationalIDSpecific);
@@ -109,24 +104,16 @@ public class RosterServlet extends HttpServlet
                            the user data and tell the user what was wrong if they
                            didn't enter some data, except for date 
                          */
-                        log("Case:Switch:ADD");
 
-//                        if (roster.isOnRoster(nationalID))
-//                        {
-//                            errMsgs.add("Please choose a different National ID");
-//                        }
-//                        (roster.isOnRoster(nationalID)) ? 
-//                                errMsgs.add("Please choose a different National ID"):
-//                                bean = athleteBuilder(true, nationalID, firstName,
-//                                lastName, DateOfBirth, errMsgs);
-                        bean = athleteBuilder( (roster.isOnRoster(nationalID)) ? 
-                                //if national ID is already on roster
-                                errMsgs.add("Please choose a different National ID"):
-                                //if national ID isn't on roster, call function
-                                true, nationalID, firstName, lastName, DateOfBirth, errMsgs);
-                        
-//                        bean = athleteBuilder(true, nationalID, firstName,
-//                                lastName, DateOfBirth, errMsgs);
+                        bean = athleteBuilder((roster.isOnRoster(nationalID)) ? 
+                                /*  if national ID is already on roster, user
+                                    needs to choose a different nationalID
+                                */
+                                errMsgs.add(
+                                        "Please choose a different National ID")
+                                : //if national ID isn't on roster, call function
+                                true, nationalID, firstName, lastName,
+                                DateOfBirth, errMsgs);
 
                         if (errMsgs.isEmpty())
                         {
@@ -161,9 +148,8 @@ public class RosterServlet extends HttpServlet
                         break;
                     case "confirmdelete":
                         /* confirmDelete is entered when you are on the 
-                            deleteAthlete page, and are saying delete for sure.
-                         */
-                        log("Case:Switch:CONFIRM_DELETE");
+                           deleteAthlete page, and are saying delete for sure.
+                        */
                         String nationalIDConfirm = request.getParameter(
                                 "nationalIDSpecific");
                         if (roster.delete(nationalIDConfirm))
@@ -219,6 +205,9 @@ public class RosterServlet extends HttpServlet
 
         AthleteBean bean = new AthleteBean();
 
+        /*  Validate each field is not null or empty
+            and add to bean, or continue validation.
+         */
         if (!(nationalID == null || nationalID.trim().isEmpty()))
         {
             //make a pattern matcher for NationalID validation
@@ -262,6 +251,10 @@ public class RosterServlet extends HttpServlet
         }
         if (!(DateOfBirth == null || DateOfBirth.trim().isEmpty()))
         {
+            /*
+                urlFlag is true for if date is submitted MM/dd/yyyy
+                urlFlag is false if date is submitted as yyyy-MM-dd
+            */
             if (urlFlag == true)
             {
                 try
@@ -299,31 +292,6 @@ public class RosterServlet extends HttpServlet
         return bean;
     }
 
-//////////////////////////////////////////////////////////
-//    @Override Replaced
-//    public void init() throws ServletException {
-//        super.init(); //To change body of generated methods, choose Tools | Templates.
-//        
-//        //by adding the context parameter in the xml servlet context, it is accessible
-//        // to all servlets. Servlet Context is accessible by all, the servlet init parameter
-//        // is only accesible to the single servlet
-//        
-//        String virtualFilePath = getServletContext().getInitParameter("ContextRosterPath");
-//        
-//        String realPath = getServletContext().getRealPath(virtualFilePath);
-//        //Log to see if those paths hold anything.
-//        log(String.format("virtual path: %s\nreal path:%s\n", virtualFilePath,
-//                realPath));
-//        
-//        if(Roster.initialize(realPath)) 
-//        {
-//            log("The Roster was Initialized");
-//            
-//           
-//        }else{
-//            log("unable to intialize the roster");
-//        }
-//    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

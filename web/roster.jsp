@@ -43,12 +43,13 @@
                         <td><c:out value="${athlete.lastName}"/></td>
                         <td><c:out value="${athlete.dateOfBirth}"/></td>
                         <td>
+                            <!-- 
+                                test if output for age is unset or invalid
+                                and output nothing to the screen in that case
+                            -->
                             <c:choose>
-                                <c:when test="${athlete.age == -2}">
+                                <c:when test="${athlete.age < 0}">
                                     <p></p>
-                                </c:when>
-                                <c:when test="${athlete.age == -1} ">
-                                    
                                 </c:when>
                                 <c:otherwise>
                                     <c:out value="${athlete.age}"/>
