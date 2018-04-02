@@ -56,27 +56,25 @@
                         <td><label>Date Of Birth</label></td>
                         <td>
                             <label>${specificAthlete.getDateOfBirth()}</label>
-                            
+
                         </td>
                     </tr>
 
-                        <tr>
-                            <td colspan="2">
-                                <p>Are you sure you want to remove this athlete from the roster?</p> 
-                                <input type="hidden" name="nationalIDSpecific" 
-                                       value="<c:out value='${specificAthlete.getNationalID()}'/>">
-                                <input type="hidden" name="action" 
-                                       value="confirmDelete">
-                                <input type="submit" value="Delete" name="action" />
-                                <input type="submit" value="Cancel" name ="action" />
-                            </td>
-                        </tr>
-                    </tbody>
+                    <tr>
+                        <td colspan="2">
+                            <p>Are you sure you want to remove this athlete from the roster?</p> 
+                            <input type="hidden" name="nationalIDSpecific" 
+                                   value="<c:out value='${specificAthlete.getNationalID()}'/>">
+                            <input type="hidden" name="action" 
+                                   value="confirmDelete">
+                            <input type="submit" value="Delete" name="action" />
+                            <input type="submit" value="Cancel" name ="action" />
+                        </td>
+                    </tr>
+                </tbody>
 
-                </table>
-            </form>
-
-
+            </table>
+        </form>
 
 
 
@@ -84,5 +82,7 @@
 
 
 
-        </body>
-    </html>
+
+
+    </body>
+</html>
